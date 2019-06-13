@@ -5,7 +5,7 @@ import html_parser
 import urllib
 import mysql.connector
 import traceback
-
+#function of MySQL
 db_cnx = mysql.connector.connect(user='root', password='123456', database='baidubaike',charset='utf8mb4')
 def save_sql(data):
     cursor = db_cnx.cursor()
@@ -42,21 +42,21 @@ class SpiderMain(object):
                 html_cont = self.downloader.download(new_url)
                 new_urls, new_data = self.parser.parse(new_url, html_cont)
                 self.urls.add_new_urls(new_urls)
-                save_sql(new_data)
+                save_sql(new_data) # save in MySQL.
                 #print(new_data)
 
-                if count == 250:
+                if count == 250: # the number of crawls in one time.
                     break
                 count = count + 1
             except:
-                traceback.print_exc()
+                traceback.print_exc() # get the errer info.
                 print('crawl failed')
 
 
 
-keyword = "KEYWORD"
+keyword = "KEYWORD" # ANY keyword you want.
 root_url = "http://baike.baidu.com/item/" + urllib.parse.quote(keyword, encoding='utf8')
 obj_spider = SpiderMain()
 obj_spider.crawl(root_url)
 
-db_cnx.close()
+db_cnx.close() # close the connection of the MySQL.
