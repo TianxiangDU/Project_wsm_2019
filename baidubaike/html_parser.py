@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from bs4 import  BeautifulSoup
 
 
-class HtmlParser(object):
+class HtmlParser(object): # Parser
     def parse(self, page_url, html_content):
         if page_url == None or html_content == None:
             return
@@ -19,8 +19,8 @@ class HtmlParser(object):
         
     def _get_new_urls(self, page_url, soup):
         new_urls = set()
-        links1 = soup.select('li.item > a')
-        links2 = soup.select('div.lemma-summary > div.para > a')
+        links1 = soup.select('li.item > a') # urls in subtitles
+        links2 = soup.select('div.lemma-summary > div.para > a') # urls in summary
         links = links1 + links2
         #print(links)
         if links == None:
@@ -32,7 +32,7 @@ class HtmlParser(object):
                 new_urls.add(new_full_url)
         return new_urls
 
-    def _get_new_data(self, page_url, soup):
+    def _get_new_data(self, page_url, soup): # create the dictionary of the data.
         res_data ={}
 
         title_node = soup.find("dd", class_="lemmaWgt-lemmaTitle-title").find("h1")
