@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-  
-class UrlManager(object):
+class UrlManager(object): # manage urls, give the parser urls and make sure that there is no same url.
     def __init__(self):
         self.new_urls = set()
         self.old_urls = set()
